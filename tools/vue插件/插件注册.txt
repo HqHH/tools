@@ -1,0 +1,50 @@
+element-ui
+安装
+cnpm install element-ui -S
+
+main.js 配置
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+
+less
+cnpm install --save-dev less less-loader
+无需配置，直接使用
+
+axios
+安装
+cnpm install --save axios vue-axios
+main.js 配置
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+
+mint-ui
+安装
+cnpm i mint-ui --save
+main.js 配置
+import Mint from 'mint-ui';
+Vue.use(Mint);
+import 'mint-ui/lib/style.css'; 
+
+vuex
+安装
+cnpm install vuex --save
+创建store文件夹创建index.js文件
+文件引入
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+export default new Vuex({})
+
+在main.js 配置
+import store from './store'
+在对象new Vue（{添加store}）
+
+
+
+
+
+
+

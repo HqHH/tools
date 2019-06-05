@@ -1,0 +1,15 @@
+/*
+* @Author: xianghai.peng
+* @Date:   2017-07-13 17:15:52
+* @Last Modified by:   xianghai.peng
+* @Last Modified time: 2017-07-13 17:19:15
+*/
+.search {
+	font-size: 50px;
+	color: red;
+
+	text-shadow: 5px 5px 2px #000;
+	opacity: .5;
+	display: inline-block;
+	transform: rotate(50deg);
+}

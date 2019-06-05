@@ -1,0 +1,33 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+		<!--引入jquery插件-->
+		<script src="lib/jquery-2.1.4.min.js"></script>
+		
+		<!--引入懒加载插件-->
+		<script src="lib/jquery.lazyload.min.js"></script>
+	</head>
+	<body>
+		
+		<img class="lazy" data-original="images/1.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/2.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/3.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/1.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/2.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/1.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/3.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/2.jpg" src="images/lazyload.gif" alt="" /><br/>
+		<img class="lazy" data-original="images/3.jpg" src="images/lazyload.gif" alt="" /><br/>
+		
+		<script>
+			$(function(){
+				$("img.lazy").lazyload({
+					effect:"fadeIn",//"slideDown"
+					//event:"click",
+					threshold:200
+				});
+			})
+		</script>
+	</body>
+</html>

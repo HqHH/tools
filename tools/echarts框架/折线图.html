@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+     <!-- 为ECharts准备一个具备大小（宽高）的Dom 可以理解为是一个容器，我们画的图都会在这里面-->
+    <div id="main" style="width: 800px;height:500px;"></div>
+    </body>
+    <!-- 引入Echarts所依赖的js文件 -->
+    <script src="lib/echarts.min.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+        	// 标题
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            // 工具箱
+		    toolbox: {
+		        show: true,
+		        feature: {
+		        	// 设置保存图片
+		            saveAsImage: {
+		                show: true
+		            }
+		        }
+		    },
+		    // 图例 (每一条数据的名字叫什么)
+            legend: {
+                data:['产量']
+            },
+            // x轴代表的参数项
+            xAxis: {
+            	// 要显示的信息
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            // y轴代表的参数项，为空的话会根据多给数据自动生成
+            yAxis: {},
+            // 数据相关内容
+            // 与直方图不同的是变化了类型为line
+            series: [{
+            name: '产量',
+            type: 'line',
+            data: [9, 35, 45, 9, 42, 70]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</html>

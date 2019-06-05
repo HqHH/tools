@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/fullpage.min.css" />
+	</head>
+	<body>
+		<style>
+			.section{
+				text-align: center;
+				font-size: 32px;
+				color:#fff;
+			}
+			.red{
+				background: red;
+			}
+			.orange{
+				background: orange;
+			}
+			.blue{
+				background: blue;
+			}
+			.pink{
+				background: pink;
+			}
+			/*更改tip的背景色*/
+			#fp-nav ul li a span, .fp-slidesNav ul li a span{
+				background: #fff;
+			}
+			.fp-controlArrow.fp-next{
+				right:53px;	
+			}
+			.fp-controlArrow.fp-prev{
+				left:43px;
+			}
+		</style>
+		<div id="fullpage">
+		    <div class="section">第一屏</div>
+		    <div class="section">第二屏</div>
+		    <div class="section">
+		        <div class="slide">第三屏的第一张幻灯片</div>
+		        <div class="slide">第三屏的第二张幻灯片</div>
+		        <div class="slide">第三屏的第三张幻灯片</div>
+		        <div class="slide">第三屏的第四张幻灯片</div>
+		    </div>
+		    <div class="section">
+		    	<div>
+		    		<h3>这是第4屏内容哦..</h3>
+		    		<p>埃里克森大家爱睡懒觉打算离开就是大了</p>
+		    	</div>
+		    </div>
+		</div>
+		
+		<script src="lib/jquery-2.1.4.min.js"></script>
+		<script src="lib/jquery.fullpage.min.js"></script>
+		
+		<script>
+		$(function(){
+		    $('#fullpage').fullpage({
+		    	sectionsColor:["red","blue","orange","pink"],
+//			    	controlArrows:false,
+				navigation:true,
+				navigationTooltips:["第一屏","第二屏","第三屏","第四屏"],
+//					navigationPosition:"left",
+				showActiveTooltip:true,
+				loopBottom:true,
+				loopTop:true,
+				afterRender:function(){
+					$.fn.fullpage.moveTo(3,2);
+				},
+				onLeave:function(index,nextIndex,direction){
+					console.log(index,nextIndex,direction);
+				}
+		    });
+		});
+		</script>
+	</body>
+</html>

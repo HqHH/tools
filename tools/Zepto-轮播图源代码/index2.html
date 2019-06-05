@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style>
+			*{
+				padding:0;
+				margin:0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.container{
+				height:200px;
+				overflow: hidden;
+				position: relative;
+			}
+			.container .box{
+				width:600%;
+				height:200px;
+				position: absolute;
+				top:0;
+				left:-100%;
+			}
+			.container .box div{
+				width:16.666667%;
+				height:200px;
+				float:left;
+				background-size:cover;
+				background-position: center;
+			}
+			.container .nav{
+				position: absolute;
+				left:50%;
+				bottom:15px;
+				width:30%;
+				height:20px;
+				transform: translate(-50%);	
+				display: flex;		
+				justify-content: space-between;	
+			}
+			.container .nav li{
+				width:20px;
+				height:20px;
+				background: #fff;
+				border-radius: 50%;
+			}
+			.container .nav li.active{
+				background: #096;
+			}
+			.a{
+				background: url(images/kgc1.jpg);
+			}
+			.b{
+				background: url(images/kgc2.jpg);
+			}
+			.c{
+				background: url(images/kgc3.jpg);
+			}
+			.d{
+				background: url(images/kgc4.jpg);
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="container">
+			<div class="box">
+				<div class="d"></div>
+				<div class="a"></div>
+				<div class="b"></div>
+				<div class="c"></div>
+				<div class="d"></div>
+				<div class="a"></div>
+			</div> 
+			<ul class="nav">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
+		
+		<script src='js/zepto.min.js'></script>
+		<script src='js/fx.js'></script>
+		<script src='js/fx_methods.js'></script>
+		<script src='js/selector.js'></script>
+		<script src='js/touch.js'></script>
+		<script>
+			//获取整个容器的宽度
+			var $conWidth = $(".container").width();
+			var canMove = true;//控制是否允许滑动
+			var timer = null;
+			//从右向左滑动
+			$(".box").on("swipeLeft",function(){
+				sLeft();
+			});
+			
+			//封装从右向左滑动的方法
+			function sLeft(){
+				if(canMove){
+					//清除定时器
+					clearInterval(timer);
+					canMove = false;
+					//获取移动前的box的left位置
+					var boxLeft = $(".box").position().left;
+					$(".box").animate({
+						left:boxLeft-$conWidth
+					},300,function(){
+						//如果swiperLeft到最后的位置A，切换为第一个A
+						if($(".box").position().left==-5*$conWidth){
+							$(".box").css({
+								left:-$conWidth
+							});
+						}
+						navActive()
+					});
+					//继续定时器
+					timer = setInterval(sLeft,3000);
+				}
+			}
+			
+			//调用定时器播放
+			timer = setInterval(sLeft,3000);
+			
+			//从左往右滑动
+			$(".box").on("swipeRight",function(){
+				if(canMove){
+					//清除定时器
+					clearInterval(timer);
+					canMove = false;
+					var boxLeft = $(".box").position().left;
+					$(".box").animate({
+						left:boxLeft+$conWidth
+					},300,function(){
+						//如果swipeRight到最前面的位置D，切换为后面的D
+						if($(".box").position().left==0){
+							$(".box").css({
+								left:-4*$conWidth
+							});
+						}
+						navActive()
+					});
+					//继续定时器
+					timer = setInterval(sLeft,3000);
+				}
+			});
+			
+			//如果图片在移动过程中，有新的手势事件会干扰最终的效果
+			//使用一个全局变量来控制是否移动
+			$(".box").on("transitionend",function(){
+				canMove = true;
+			});
+			
+			//导航的切换
+			function navActive(){
+				//获取对应的ABCD四张图片对应的下标0 1 2 3
+				var index = ($(".box").position().left/-$conWidth)-1;
+				$(".nav li").eq(index).addClass("active").siblings().removeClass("active");
+			}
+		</script>
+	</body>
+</html>

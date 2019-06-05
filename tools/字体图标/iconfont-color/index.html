@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="iconfont.css" />
+		<script src="iconfont.js"></script>
+		<style type="text/css">
+	        .icon {
+	          /* 通过设置 font-size 来改变图标大小 */
+	          width: 1em; height: 1em;
+	          /* 图标和文字相邻时，垂直对齐 */
+	          vertical-align: -0.15em;
+	          /* 通过设置 color 来改变 SVG 的颜色/fill */
+	          fill: currentColor;
+	          /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+	             normalize.css 中也包含这行 */
+	          overflow: hidden;
+	        }
+			
+			.icon-zhuozi{
+				font-size:40px;
+				color:green;
+				text-shadow: 0 2px 5px #111;
+				
+				display: inline-block;
+				transform: rotate(0deg) scale(1);
+				transition: all .5s;
+				animation: move 3s linear infinite;
+			}
+			/*.icon-zhuozi:hover{
+				transform: rotate(360deg);
+			}*/
+			@keyframes move{
+				0{
+					transform: rotate(0deg) scale(1);
+				}
+				50%{
+					transform: rotate(180deg) scale(1.4);
+					text-shadow: 0 2px 10px pink;
+				}
+				100%{
+					transform: rotate(360deg) scale(1);
+				}
+			}
+	    </style>
+	</head>
+	<body>
+		
+		<i class="iconfont icon-zhuozi"></i>
+		
+		<svg class="icon" aria-hidden="true">
+		  <use xlink:href="#icon-zhuozi"></use>
+		</svg>
+	</body>
+</html>

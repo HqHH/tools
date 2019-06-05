@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>课工场：轮播图案例</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			height: 200px;
+			overflow: hidden;
+			position: relative;
+		}
+		.box{
+			height: 200px;
+			width: 600%;
+			position: absolute;
+			top: 0;
+		}
+		.box>div{
+			width: 16.666666667%;
+			height: 200px;
+			float: left;
+			background-position: 50% 50%;
+			background-size: auto 200px;
+		}
+		.a{
+			background-image: url(images/kgc1.jpg);
+		}
+		.b{
+			background-image: url(images/kgc2.jpg);
+		}
+		.c{
+			background-image: url(images/kgc3.jpg);
+		}
+		.d{
+			background-image: url(images/kgc4.jpg);
+		}
+		.nav{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			position: absolute;
+			bottom: 10px;
+			left: 50%;
+			transform: translate(-50%);
+			height: 15px;
+			width: 30%;
+			display: flex;
+			justify-content: space-between;
+		}
+		.nav>li{
+			height: 15px;
+			width: 15px;
+			border-radius: 50%;
+			background-color: white;
+		}
+		.nav>li.active{
+			background-color: #096;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box">
+			<div class="d"></div>
+			<div class="a"></div>
+			<div class="b"></div>
+			<div class="c"></div>
+			<div class="d"></div>
+			<div class="a"></div>
+		</div>
+		<ul class="nav">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</body>
+<script src="js/zepto.min.js"></script>
+<script src="js/selector.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/fx_methods.js"></script>
+<script src="js/touch.js"></script>
+<script>
+	var W = $(".container").width();	//获取容器的宽度
+	$(".box").css("left",-W);
+	var canMove = true;					//box是否可以进行动画的开关器
+	var time;							//定时器全局变量
+
+	//滑动事件可以多次触发，如果触发的同时正在进行动画
+	//滑动事件会累积，会出现位置的偏差
+
+	//zepto的动画是通过CSS3的transition实现的，可以通过transitionEnd事件来判断动画是否完成
+	$(".box").on("swipeLeft",function(){
+		clearInterval(time);				//滑动前清除定时器
+		slideLeft();
+		setTimeout(function(){				//滑动后重置定时器
+			time = setInterval(slideLeft,4000);		
+		},400)
+	})
+
+	$(".box").on("swipeRight",function(){
+		clearInterval(time);
+		if(canMove){
+			var nowLeft = $(".box").position().left;
+			$(".box").animate({
+					left: nowLeft+W		//每次滑动left增加W的值(往右移动)
+				},
+				400, 					//滑动的动画时间
+				function() {
+					if($(".box").position().left == 0){
+						$(".box").css("left",-4*W);
+					}
+					navActive();
+				}
+			);
+		}
+		setTimeout(function(){
+			time = setInterval(slideLeft,4000);		
+		},400)		
+	})
+
+	//监听box的过渡完成事件
+	$(".box").on("transitionend",function(){
+		canMove = true;
+	})
+
+	time = setInterval(slideLeft,4000);
+
+	function slideLeft(){
+		if(canMove){					//判断动画是否正在进行中
+			canMove = false;
+			//获取box的当前的left值
+			var nowLeft = $(".box").position().left;
+			$(".box").animate({
+					left: nowLeft-W		//每次滑动left减少W的值(往左移动)
+				},
+				400, 					//滑动的动画时间
+				function() {			//动画完成后的回调
+					if($(".box").position().left == -5*W){
+						$(".box").css("left",-W);
+					}
+					navActive();
+				}
+			);
+		}
+	}
+
+	function navActive(){
+		var nowLeft = $(".box").position().left;
+		var index = (nowLeft/-W)-1;
+		$(".nav>li").removeClass('active');
+		$(".nav>li").eq(index).addClass('active');
+	}
+</script>
+</html>
